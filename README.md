@@ -10,6 +10,14 @@ yay -S hyprland-bin kitty waybar-hyprland \
     swappy grim slurp pamixer brightnessctl gvfs \
     bluez bluez-utils lxappearance xfce4-settings \
     dracula-gtk-theme dracula-icons-git xdg-desktop-portal-hyprland-git
+    godot krita code xarchiver wine wine-mono winetricks gnome-disk-utility \
+    evince nano vim virtualbox-host-modules-lts vlc blender-3.3-bin \
+    microsoft-edge-stable-bin
 ```
 
-Or you can use the attached script "set-hypr" to install everything for you.
+Or you can use the attached script "set-hyprland" to install everything for you.
+
+
+!!! DISCLAIMER !!!
+This hyprland file is updated version of Hyprland created by SolDoesTech for personal use 
+and faster data recovery after OS reinstall with no intention of plagarising the original content.
