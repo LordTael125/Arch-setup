@@ -14,12 +14,15 @@ yay -S hyprland-bin kitty waybar-hyprland \
     evince nano vim virtualbox-host-modules-lts vlc blender-3.3-bin \
     microsoft-edge-stable-bin thunar-volman thunar-archive-plugin \
     thunar-media-tags-plugin tumbler gvfs dolphin kde-cli-tools \
-    kdegraphics-thumbnailers kdenetwork-filesharing purpose
+    kdegraphics-thumbnailers kdenetwork-filesharing purpose  \
+    obs-studio gnome-text-editor
 ```
 
 Or you can use the attached script "set-hyprland" to install everything for you.
 
 
 !!! DISCLAIMER !!!
-This hyprland file is updated version of Hyprland created by SolDoesTech for personal use 
-and faster data recovery after OS reinstall with no intention of plagarising the original content.
+"This hyprland file is updated version of Hyprland config files created by SolDoesTech for personal use 
+and faster data recovery after OS reinstall with no intention of plagarising the original content  or claiming as own."
+
+--LordTael125--
