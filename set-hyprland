@@ -70,7 +70,8 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
     evince nano vim virtualbox-host-modules-lts vlc blender-3.3-bin \
     microsoft-edge-stable-bin thunar-volman thunar-archive-plugin \
     thunar-media-tags-plugin tumbler gvfs dolphin kde-cli-tools \
-    kdegraphics-thumbnailers kdenetwork-filesharing purpose
+    kdegraphics-thumbnailers kdenetwork-filesharing purpose \
+    obs-studio gnome-text-editor
 
     # Start the bluetooth service
     echo -e "Starting the Bluetooth Service...\n"
