@@ -1,0 +1,105 @@
+#!/bin/bash
+
+# The follwoing will attempt to install all needed packages to prepare the arch
+# This is a quick and dirty script there are no error checking
+# This script is meant to run on a clean fresh system minimum install system
+
+#### Check for yay ####
+ISYAY=/sbin/yay
+if [ -f "$ISYAY" ]; then 
+    echo -e "yay was located, moving on.\n"
+    yay -Suy
+else 
+    echo -e "yay was not located, please install yay. Exiting script.\n"
+    exit 
+fi
+
+### Disable wifi powersave mode ###
+echo -e 'Would you like to disable wifi powersave? '
+read -n1 -rep 'The powersave features disables the wifi after some idle time (y,n)' WIFI
+if [[ $WIFI == "Y" || $WIFI == "y" ]]; then
+    LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
+    echo -e "The following has been added to $LOC.\n"
+    echo -e "[connection]\nwifi.powersave = 2" | sudo tee -a $LOC
+    echo -e "\n"
+    echo -e "Restarting NetworkManager service...\n"
+    sudo systemctl restart NetworkManager
+    sleep 3
+fi
+
+### Install all of the above pacakges ####
+read -n1 -rep 'Would you like to install the packages? (y,n)' INST
+if [[ $INST == "Y" || $INST == "y" ]]; then
+    yay -S --noconfirm hyprland kitty waybar \
+    swaybg swaylock-effects wofi wlogout mako thunar \
+    ttf-jetbrains-mono-nerd noto-fonts-emoji \
+    polkit-gnome python-requests starship \
+    swappy grim slurp pamixer brightnessctl gvfs \
+    bluez bluez-utils lxappearance xfce4-settings \
+    dracula-gtk-theme dracula-icons-git xdg-desktop-portal-hyprland \
+    plasma-desktop gnome-disk-utility thunar-volman thunar-archive-plugin \
+    thunar-media-tags-plugin tumbler gvfs gnome-text-editor \
+    dolphin kde-cli-tools vlc evince flatpak network-manager-applet \
+    kdegraphics-thumbnailers kdenetwork-filesharing purpose discover \
+    nm-connection-editor networkmanager-qt5 network manager sddm sddm-kcm\
+     
+
+    # Start the bluetooth service
+    echo -e "Starting the Bluetooth Service...\n"
+    sudo systemctl enable --now bluetooth.service
+    sleep 2
+    
+    # Clean out other portals
+    echo -e "Cleaning out conflicting xdg portals...\n"
+    yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk
+fi
+
+read -n1 -rep 'Would you like to install additional packages? (y,n)' INST
+if [[ $INST == "Y" || $INST == "y" ]]; then
+    yay -S --noconfirm steam godot krita code microsoft-edge-stable-bin\
+    obs-studio xarchiver wine wine-mono winetricks gitkraken \
+    nano vim virtualbox-host-modules-lts blender spotify \
+
+    sudo pacman -S --noconfirm python-numpy python-pandas python-matplotlib jupyterlabs
+
+fi
+
+### Copy Config Files ###
+read -n1 -rep 'Would you like to copy config files? (y,n)' CFG
+if [[ $CFG == "Y" || $CFG == "y" ]]; then
+    echo -e "Copying config files...\n"
+    cp -R configs/hypr ~/.config/
+    cp -R configs/kitty ~/.config/
+    cp -R configs/mako ~/.config/
+    cp -R configs/waybar ~/.config/
+    cp -R configs/swaylock ~/.config/
+    cp -R configs/wofi ~/.config/
+    cp -R configs/kde.org ~/.config/
+    cp -R configs/kdedefaults ~/.config/
+    cp -R configs/KDE ~/.config/
+
+    # Set some files as exacutable 
+    chmod +x ~/.config/hypr/xdg-portal-hyprland
+    chmod +x ~/.config/waybar/scripts/waybar-wttr.py
+fi
+
+### Install teh starship shell ###
+read -n1 -rep 'Would you like to install the starship shell? (y,n)' STAR
+if [[ $STAR == "Y" || $STAR == "y" ]]; then
+    # install the starship shell
+    echo -e "Updating .bashrc...\n"
+    echo -e '\neval "$(starship init bash)"' >> ~/.bashrc
+    echo -e "copying starship config file to ~/.confg ...\n"
+    cp starship.toml ~/.config/
+fi
+
+### Script is done ###
+echo -e "Script had completed.\n"
+read -n1 -rep 'Would you like to start sddm now? (y,n)' HYP
+if [[ $HYP == "Y" || $HYP == "y" ]]; then
+    sudo systemctl enable sddm
+    echo -e 'The system will begin a restart of the system'
+    reboot -h now
+else
+    exit
+fi
