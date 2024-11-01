@@ -3,7 +3,7 @@ collection of dot config files for hyprland & KDE-plasma with a simple install s
 
 You can grab the config files and install packages listed below
 ```
-     hyprland kitty waybar \
+    hyprland kitty waybar \
     swaybg swaylock-effects wofi wlogout mako thunar \
     ttf-jetbrains-mono-nerd noto-fonts-emoji \
     polkit-gnome python-requests starship \
@@ -17,12 +17,13 @@ You can grab the config files and install packages listed below
     nm-connection-editor networkmanager-qt5 network manager sddm\
 ```
 The following additional packages are optional to install in the script
-'''
+```
     steam godot krita code microsoft-edge-stable-bin\
     obs-studio xarchiver wine wine-mono winetricks gitkraken \
     nano vim virtualbox-host-modules-lts blender spotify \
     python-numpy python-pandas python-matplotlib jupyterlabs
-'''
+```
+
 
 Or you can use the attached script "set-arch" to install everything for you.
 
