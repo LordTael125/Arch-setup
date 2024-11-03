@@ -27,13 +27,13 @@ if [[ $WIFI == "Y" || $WIFI == "y" ]]; then
     sleep 3
 fi
 
-### Install all of the above pacakges ####
+### Install all of the basic pacakges ####
 read -n1 -rep 'Would you like to install the packages? (y,n)' INST
 if [[ $INST == "Y" || $INST == "y" ]]; then
     yay -S --noconfirm hyprland kitty waybar \
     swaybg swaylock-effects wofi wlogout mako thunar \
     ttf-jetbrains-mono-nerd noto-fonts-emoji \
-    polkit-gnome python-requests starship \
+    polkit-gnome python-requests starship acpi \
     swappy grim slurp pamixer brightnessctl gvfs \
     bluez bluez-utils lxappearance xfce4-settings \
     dracula-gtk-theme dracula-icons-git xdg-desktop-portal-hyprland \
@@ -54,6 +54,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
     yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk
 fi
 
+### Install all the additional packages ###
 read -n1 -rep 'Would you like to install additional packages? (y,n)' INST
 if [[ $INST == "Y" || $INST == "y" ]]; then
     yay -S --noconfirm steam godot krita code microsoft-edge-stable-bin\
