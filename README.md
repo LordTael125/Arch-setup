@@ -1,28 +1,37 @@
 # Archlinux Hyprland & KDE-Plasma setup
-collection of dot config files for hyprland & KDE-plasma with a simple install script for a fresh Arch linux with yay & pacman
+This is a simple script which aims to install hyprland as its main DE along with the option to install kde-plasma for dual DE setup.
 
-You can grab the config files and install packages listed below
 ```
-    hyprland kitty waybar \
-    swaybg swaylock-effects wofi wlogout mako thunar \
-    ttf-jetbrains-mono-nerd noto-fonts-emoji \
-    polkit-gnome python-requests starship \
-    swappy grim slurp pamixer brightnessctl gvfs \
-    bluez bluez-utils lxappearance xfce4-settings \
-    dracula-gtk-theme dracula-icons-git xdg-desktop-portal-hyprland \
-    plasma-desktop gnome-disk-utility thunar-volman thunar-archive-plugin \
-    thunar-media-tags-plugin tumbler gvfs gnome-text-editor \
-    dolphin kde-cli-tools vlc evince flatpak network-manager-applet \
-    kdegraphics-thumbnailers kdenetwork-filesharing purpose discover \
-    nm-connection-editor networkmanager-qt5 network manager sddm\
+Note : Before Running the script install yay to use the script 
 ```
-The following additional packages are optional to install in the script
+You can also grab the config files and install packages listed below manually if you wish
+
+Basic packages
+```
+    hyprland kitty waybar swaybg swaylock-effects wofi wlogout mako thunar \
+    ttf-jetbrains-mono-nerd noto-fonts-emoji polkit-gnome python-requests starship acpi htop \
+    swappy grim slurp pamixer brightnessctl gvfs bluez bluez-utils lxappearance xfce4-settings\
+    dracula-gtk-theme dracula-icons-git xdg-desktop-portal-hyprland gnome-disk-utility thunar-volman  \
+    thunar-media-tags-plugin tumbler gvfs gnome-text-editor thunar-archive-plugin evince flatpak \
+    vlc network-manager-applet nm-connection-editor networkmanager-qt5 network-manage nano vim
+```
+
+KDE plasma packages
+```
+    plasma-desktopkdegraphics-thumbnailers kdenetwork-filesharing purpose discover \
+    kaccounts-integration kscreen libaccounts-qt packagekit-qt6 plasma-nm plasma-pa scim dolphin \
+    kde-cli-tools
+```
+
+Additional packages
 ```
     steam godot krita code microsoft-edge-stable-bin\
     obs-studio xarchiver wine wine-mono winetricks gitkraken \
     nano vim virtualbox-host-modules-lts blender spotify \
     python-numpy python-pandas python-matplotlib jupyterlabs
 ```
+
+
 
 
 Or you can use the attached script "set-arch" to install everything for you.

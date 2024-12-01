@@ -3,12 +3,12 @@
     border-radius: 0;
     font-family: "JetBrainsMono Nerd Font";
     font-weight: bold;
-    font-size: 10px;
+    font-size: 14px;
     min-height: 0;
 }
 
 window#waybar {
-    background: rgba(133, 109, 182, 0);
+    background: rgba(21, 18, 27, 0);
     color: #cdd6f4;
 }
 
@@ -28,13 +28,10 @@ tooltip {
 
 #workspaces button.active {
     color: #a6adc8;
-}
-
-#workspaces button.focused {
-    color: #a6adc8;
     background: #eba0ac;
     border-radius: 10px;
 }
+
 
 #workspaces button.urgent {
     color: #11111b;
@@ -60,12 +57,12 @@ tooltip {
 #workspaces,
 #tray,
 #backlight {
-    background: transparent;
+    background: #1e1e2e;
     opacity: 0.8;
     padding: 0px 10px;
     margin: 3px 0px;
     margin-top: 10px;
-    border: 1px solid #45455c;
+    border: 1px solid #181825;
 }
 
 #temperature {
@@ -151,3 +148,5 @@ tooltip {
     border-right: 0px;
     margin-left: 0px;
 }
+
+

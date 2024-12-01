@@ -1,17 +1,23 @@
 #!/bin/bash
 
+#----------------------------------------------------------------------------------------------------------#
+
+
 # The follwoing will attempt to install all needed packages to prepare the arch
-# This is a quick and dirty script there are no error checking
+# This is a fast one shot script with no error checking mechanism
 # This script is meant to run on a clean fresh system minimum install system
+
+
+#----------------------------------------------------------------------------------------------------------#
 
 #### Check for yay ####
 ISYAY=/sbin/yay
-if [ -f "$ISYAY" ]; then 
+if [ -f "$ISYAY" ]; then
     echo -e "yay was located, moving on.\n"
     yay -Suy
-else 
+else
     echo -e "yay was not located, please install yay. Exiting script.\n"
-    exit 
+    exit
 fi
 
 ### Disable wifi powersave mode ###
@@ -27,62 +33,98 @@ if [[ $WIFI == "Y" || $WIFI == "y" ]]; then
     sleep 3
 fi
 
+
+#----------------------------------------------------------------------------------------------------------#
+
+
 ### Install all of the basic pacakges ####
-read -n1 -rep 'Would you like to install the packages? (y,n)' INST
-if [[ $INST == "Y" || $INST == "y" ]]; then
-    yay -S --noconfirm hyprland kitty waybar \
-    swaybg swaylock-effects wofi wlogout mako thunar \
-    ttf-jetbrains-mono-nerd noto-fonts-emoji \
-    polkit-gnome python-requests starship acpi \
-    swappy grim slurp pamixer brightnessctl gvfs \
-    bluez bluez-utils lxappearance xfce4-settings \
-    dracula-gtk-theme dracula-icons-git xdg-desktop-portal-hyprland \
-    plasma-desktop gnome-disk-utility thunar-volman thunar-archive-plugin \
-    thunar-media-tags-plugin tumbler gvfs gnome-text-editor \
-    dolphin kde-cli-tools vlc evince flatpak network-manager-applet \
-    kdegraphics-thumbnailers kdenetwork-filesharing purpose discover \
-    nm-connection-editor networkmanager-qt5 network manager sddm sddm-kcm\
-     
+read -n1 -rep 'Would you like to install the basic packages? (y,n)' INSTA
+if [[ $INSTA == "Y" || $INSTA == "y" ]]; then
+    yay -S --noconfirm hyprland kitty waybar swaybg swaylock-effects wofi wlogout mako thunar \
+    ttf-jetbrains-mono-nerd noto-fonts-emoji polkit-gnome python-requests starship acpi htop \
+    swappy grim slurp pamixer brightnessctl gvfs bluez bluez-utils lxappearance xfce4-settings\
+    dracula-gtk-theme dracula-icons-git xdg-desktop-portal-hyprland gnome-disk-utility thunar-volman  \
+    thunar-media-tags-plugin tumbler gvfs gnome-text-editor thunar-archive-plugin evince flatpak \
+    vlc network-manager-applet nm-connection-editor networkmanager-qt5 network-manager nano vim \
+    lib32-pipewire
+
 
     # Start the bluetooth service
     echo -e "Starting the Bluetooth Service...\n"
     sudo systemctl enable --now bluetooth.service
     sleep 2
-    
+
     # Clean out other portals
     echo -e "Cleaning out conflicting xdg portals...\n"
     yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk
 fi
 
+
+#----------------------------------------------------------------------------------------------------------#
+
+
+### Install all of the basic pacakges ####
+read -n1 -rep 'Would you like to install the KDE-Plasma packages? (y,n)' KDE
+if [[ $KDE == "Y" || $KDE == "y" ]]; then
+    yay -S --noconfirm plasma-desktopkdegraphics-thumbnailers kdenetwork-filesharing purpose discover \
+    kaccounts-integration kscreen libaccounts-qt packagekit-qt6 plasma-nm plasma-pa scim dolphin \
+    kde-cli-tools
+fi
+
+
+#----------------------------------------------------------------------------------------------------------#
+
+
 ### Install all the additional packages ###
-read -n1 -rep 'Would you like to install additional packages? (y,n)' INST
-if [[ $INST == "Y" || $INST == "y" ]]; then
-    yay -S --noconfirm steam godot krita code microsoft-edge-stable-bin\
-    obs-studio xarchiver wine wine-mono winetricks gitkraken \
-    nano vim virtualbox-host-modules-lts blender spotify \
+read -n1 -rep 'Would you like to install additional packages? (y,n)' INSTB
+if [[ $INSTB == "Y" || $INSTB == "y" ]]; then
+    yay -S --noconfirm steam godot krita code microsoft-edge-stable-bin blender spotify kdenlive \
+    obs-studio xarchiver wine wine-mono winetricks gitkraken virtualbox-host-modules-lts 
 
     sudo pacman -S --noconfirm python-numpy python-pandas python-matplotlib jupyterlabs
 
 fi
 
+
+#----------------------------------------------------------------------------------------------------------#
+
+
+echo 'Would you like to install nvidia driver for your machine?'
+echo 'Note: This script will attempt install nvidia drivers for newer cards using nvidia-dkms ( 30 series / 40 series )'
+echo '      If you are using an older card press n, and install respective driver for card'
+echo '      For reference you can visit arch official wiki for support'
+
+read -n1 -rep 'Would you like to install? (y,n) \n ' DRI
+if [[ $DRI == "Y" || $DRI == "y" ]]; then
+    yay -S --noconfirm nvdia-dkms nvidia-settings nvidia-utils lib32-nvidia-utils \
+    nvtop cuda opencl-nvidia lib32-opencl-nvidia nvidia-prime
+fi
+
+
+#----------------------------------------------------------------------------------------------------------#
+
+
 ### Copy Config Files ###
 read -n1 -rep 'Would you like to copy config files? (y,n)' CFG
 if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "Copying config files...\n"
-    cp -R configs/hypr ~/.config/
-    cp -R configs/kitty ~/.config/
-    cp -R configs/mako ~/.config/
-    cp -R configs/waybar ~/.config/
-    cp -R configs/swaylock ~/.config/
-    cp -R configs/wofi ~/.config/
-    cp -R configs/kde.org ~/.config/
-    cp -R configs/kdedefaults ~/.config/
-    cp -R configs/KDE ~/.config/
+    cp -R hypr ~/.config/
+    cp -R kitty ~/.config/
+    cp -R mako ~/.config/
+    cp -R waybar ~/.config/
+    cp -R swaylock ~/.config/
+    cp -R wofi ~/.config/
 
-    # Set some files as exacutable 
+
+    # Set some files as exacutable
     chmod +x ~/.config/hypr/xdg-portal-hyprland
     chmod +x ~/.config/waybar/scripts/waybar-wttr.py
+
 fi
+
+
+#----------------------------------------------------------------------------------------------------------#
+
 
 ### Install teh starship shell ###
 read -n1 -rep 'Would you like to install the starship shell? (y,n)' STAR
@@ -94,13 +136,40 @@ if [[ $STAR == "Y" || $STAR == "y" ]]; then
     cp starship.toml ~/.config/
 fi
 
-### Script is done ###
-echo -e "Script had completed.\n"
-read -n1 -rep 'Would you like to start sddm now? (y,n)' HYP
-if [[ $HYP == "Y" || $HYP == "y" ]]; then
+
+#----------------------------------------------------------------------------------------------------------#
+
+echo 'Now installing Desktop Manager'
+echo 'S : SDDM will be installed as Desktop Manager'
+echo 'G : GDM  will be installed as Desktop Manager'
+read -n1 -rep 'Choose the desktop Manager (s,g)' DM
+if [[ $DM == "S" || $DM == "s" ]];
+then
+    
+    yay -S --noconfirm sddm
+    
     sudo systemctl enable sddm
-    echo -e 'The system will begin a restart of the system'
-    reboot -h now
+    
+elif [[$DM == 'G' || $DM == 'g']];
+then 
+
+    yay -S --noconfirm gdm
+    
+    sudo systemctl enable gdm
+
 else
-    exit
+    echo 'So You are a terminal guy very well NO DESKTOP MANAGER FOR YOU !!!!'
+    echo 'Just kidding you have the power your machine your desktop manager
 fi
+
+#----------------------------------------------------------------------------------------------------------#
+
+
+### Script is done ###
+echo -e "Script has completed.\n"
+echo -e 'The system will begin a restart of the system'
+sudo reboot -h now
+
+
+
+#----------------------------------------------------------------------------------------------------------#
