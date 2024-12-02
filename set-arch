@@ -40,13 +40,10 @@ fi
 ### Install all of the basic pacakges ####
 read -n1 -rep 'Would you like to install the basic packages? (y,n)' INSTA
 if [[ $INSTA == "Y" || $INSTA == "y" ]]; then
-    yay -S --noconfirm hyprland kitty waybar swaybg swaylock-effects wofi wlogout mako thunar \
-    ttf-jetbrains-mono-nerd noto-fonts-emoji polkit-gnome python-requests starship acpi htop \
-    swappy grim slurp pamixer brightnessctl gvfs bluez bluez-utils lxappearance xfce4-settings\
-    dracula-gtk-theme dracula-icons-git xdg-desktop-portal-hyprland gnome-disk-utility thunar-volman  \
-    thunar-media-tags-plugin tumbler gvfs gnome-text-editor thunar-archive-plugin evince flatpak \
-    vlc network-manager-applet nm-connection-editor networkmanager-qt5 network-manager nano vim \
-    lib32-pipewire
+    yay -S --noconfirm mako thunar ttf-jetbrains-mono-nerd noto-fonts-emoji polkit-gnome python-requests htop \
+    swappy grim pamixer brightnessctl gvfs bluez bluez-utils lxappearance xfce4-settings starship acpi \
+    gnome-disk-utility tumbler gvfs gnome-text-editor evince flatpak vlc network-manager-applet \
+    nm-connection-editor networkmanager-qt5 network-manager nano vim lib32-pipewire
 
 
     # Start the bluetooth service
@@ -54,16 +51,30 @@ if [[ $INSTA == "Y" || $INSTA == "y" ]]; then
     sudo systemctl enable --now bluetooth.service
     sleep 2
 
-    # Clean out other portals
-    echo -e "Cleaning out conflicting xdg portals...\n"
-    yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk
+
 fi
 
 
 #----------------------------------------------------------------------------------------------------------#
 
 
-### Install all of the basic pacakges ####
+### Install all of the Hyprland pacakges ####
+read -n1 -rep 'Would you like to install the Hyprland packages? (y,n)' Hypr
+if [[ $Hypr == "Y" || $Hypr == "y" ]]; then
+    yay -S --noconfirm hyprland kitty waybar swaybg swaylock-effects wofi wlogout slurp dracula-gtk-theme \
+    dracula-icons-git xdg-desktop-portal-hyprland thunar-archive-plugin thunar-media-tags-plugin thunar-volman
+
+
+    # Clean out other portals
+    echo -e "Cleaning out conflicting xdg portals...\n"
+    yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk
+
+fi
+
+#----------------------------------------------------------------------------------------------------------#
+
+
+### Install all of the plasma pacakges ####
 read -n1 -rep 'Would you like to install the KDE-Plasma packages? (y,n)' KDE
 if [[ $KDE == "Y" || $KDE == "y" ]]; then
     yay -S --noconfirm plasma-desktopkdegraphics-thumbnailers kdenetwork-filesharing purpose discover \
@@ -79,7 +90,7 @@ fi
 read -n1 -rep 'Would you like to install additional packages? (y,n)' INSTB
 if [[ $INSTB == "Y" || $INSTB == "y" ]]; then
     yay -S --noconfirm steam godot krita code microsoft-edge-stable-bin blender spotify kdenlive \
-    obs-studio xarchiver wine wine-mono winetricks gitkraken virtualbox-host-modules-lts 
+    obs-studio xarchiver wine wine-mono winetricks gitkraken virtualbox-host-modules-lts
 
     sudo pacman -S --noconfirm python-numpy python-pandas python-matplotlib jupyterlabs
 
@@ -96,6 +107,7 @@ echo '      For reference you can visit arch official wiki for support'
 
 read -n1 -rep 'Would you like to install? (y,n) \n ' DRI
 if [[ $DRI == "Y" || $DRI == "y" ]]; then
+
     yay -S --noconfirm nvdia-open nvidia-settings nvidia-utils lib32-nvidia-utils \
     nvtop cuda opencl-nvidia lib32-opencl-nvidia nvidia-prime
 fi
@@ -105,7 +117,7 @@ fi
 
 
 ### Copy Config Files ###
-read -n1 -rep 'Would you like to copy config files? (y,n)' CFG
+read -n1 -rep 'Would you like to copy config files for Hyprland? (y,n)' CFG
 if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "Copying config files...\n"
     cp -R hypr ~/.config/
@@ -145,28 +157,28 @@ echo 'G : GDM  will be installed as Desktop Manager'
 read -n1 -rep 'Choose the desktop Manager (s,g)' DM
 if [[ $DM == "S" || $DM == "s" ]];
 then
-    
+
     yay -S --noconfirm sddm
-    
+
     sudo systemctl enable sddm
-    
+
 elif [[$DM == 'G' || $DM == 'g']];
-then 
+then
 
     yay -S --noconfirm gdm
-    
+
     sudo systemctl enable gdm
 
 else
     echo 'So You are a terminal guy very well NO DESKTOP MANAGER FOR YOU !!!!'
-    echo 'Just kidding you have the power your machine your desktop manager
+    echo 'Just kidding you have the power \nYour machine \nYour desktop manager'
 fi
 
 #----------------------------------------------------------------------------------------------------------#
 
 
 ### Script is done ###
-echo -e "Script has completed.\n"
+echo -e 'Script has completed.\n'
 echo -e 'The system will begin a restart of the system'
 sudo reboot -h now
 
