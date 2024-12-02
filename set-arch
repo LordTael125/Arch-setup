@@ -90,13 +90,21 @@ fi
 
 
 echo 'Would you like to install nvidia driver for your machine?'
+<<<<<<< HEAD
 echo 'Note: This script will attempt install nvidia drivers for newer cards using nvidia-open ( Turing  / Ampere / Ada Lovelace )'
+=======
+echo 'Note: This script will attempt install nvidia drivers for newer cards using nvidia-dkms ( 30 series / 40 series )'
+>>>>>>> origin/main
 echo '      If you are using an older card press n, and install respective driver for card'
 echo '      For reference you can visit arch official wiki for support'
 
 read -n1 -rep 'Would you like to install? (y,n) \n ' DRI
 if [[ $DRI == "Y" || $DRI == "y" ]]; then
+<<<<<<< HEAD
     yay -S --noconfirm nvdia-open nvidia-settings nvidia-utils lib32-nvidia-utils \
+=======
+    yay -S --noconfirm nvdia-dkms nvidia-settings nvidia-utils lib32-nvidia-utils \
+>>>>>>> origin/main
     nvtop cuda opencl-nvidia lib32-opencl-nvidia nvidia-prime
 fi
 
